@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import morgan from 'morgan';
 import connnectDB from './config/db.js';
 import authRoute from './routes/authRoute.js'
+import cors from "cors"
 //configure env
 dotenv.config();
 
@@ -13,6 +14,7 @@ connnectDB();
 const app = express();
 
 //middlewares
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -26,7 +28,7 @@ app.get("/", (req, res) => {
     })
 })
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
     console.log(`server started at ${PORT}`);
