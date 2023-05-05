@@ -10,12 +10,13 @@ const Register = () => {
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [answer, setAnswer] = useState("");
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post("/api/v1/auth/register",
-                { name, email, password, phone, address });
+                { name, email, password, phone, address, answer });
             console.log(res.data.success);
             if (res.data.success) {
 
@@ -75,6 +76,17 @@ const Register = () => {
                             class="form-control"
                             id="exampleInputPhone"
                             placeholder="Enter Phone"
+                            required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <input
+                            type="text"
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                            class="form-control"
+                            id="exampleInputPhone"
+                            placeholder="What is your favourite bird? "
                             required
                         />
                     </div>

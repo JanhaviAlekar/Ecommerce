@@ -1,6 +1,6 @@
 import express from "express";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
-import { testController, registerController, loginController } from "../controllers/authController.js";
+import { testController, registerController, loginController, forgotPasswordController } from "../controllers/authController.js";
 //router object
 const router = express.Router();
 
@@ -11,6 +11,8 @@ router.post('/register', registerController);
 //login || post
 router.post('/login', loginController);
 
+//password reset || post
+router.post('/forgot-password', forgotPasswordController)
 //test route
 router.get('/test', requireSignIn, isAdmin, testController);
 
