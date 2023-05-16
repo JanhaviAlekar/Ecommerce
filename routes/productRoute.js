@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/create-product', requireSignIn, isAdmin, formidable(), createProductController)
 
 //update product
-router.post('/update-product/:pid', requireSignIn, isAdmin, formidable(), updateProductController)
+router.put('/update-product/:pid', requireSignIn, isAdmin, formidable(), updateProductController)
 
 //delete product
 router.post('/product/:pid', deleteProductController)
@@ -22,4 +22,6 @@ router.get('/get-product/:slug', getSinlgeProductController)
 // get photo product
 router.get('/product-photo/:pid', productPhotoController)
 
+//deleter
+router.delete('/delete-product/:pid', deleteProductController)
 export default router;
