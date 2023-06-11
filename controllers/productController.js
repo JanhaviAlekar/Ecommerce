@@ -50,7 +50,7 @@ export const getProductController = async (req, res) => {
             success: true,
             totalCount: products.length,
             message: "product listed successfully",
-            products,
+            products
 
         })
     } catch (error) {

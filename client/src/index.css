@@ -80,3 +80,8 @@
   padding: 10px;
   margin-top: 10px;
 }
+
+.product-link {
+  text-decoration: none !important;
+  color: #000000 !important;
+}

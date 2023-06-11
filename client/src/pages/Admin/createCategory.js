@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../../components/layout/layout'
-import AdminMenu from '../../components/layout/adminMenu'
+import Layout from './../../components/layout/layout';
+import AdminMenu from '../../components/layout/adminMenu';
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import CategoryForm from '../../components/form/categoryForm'
@@ -32,8 +32,8 @@ const CreateCategory = () => {
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get("/api/v1/category/get-category");
-            if (data.success) {
-                setCategories(data.category);
+            if (data?.success) {
+                setCategories(data?.category);
             }
         } catch (error) {
             console.log(error);
