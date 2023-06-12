@@ -3,10 +3,12 @@ import { Link, NavLink } from 'react-router-dom'
 import { GiShoppingBag } from 'react-icons/gi'
 import { useAuth } from '../../context/auth'
 import { toast } from 'react-hot-toast';
-
+import SearchInput from '../form/searchInput';
+import useCategory from '../../hooks/useCategory';
 
 const Header = () => {
     const [auth, setAuth] = useAuth()
+    const categories = useCategory()
     const handleLogout = () => {
         setAuth({
             ...auth, user: null, token: ""
@@ -23,6 +25,7 @@ const Header = () => {
                 <div className="collapse navbar-collapse " id="navbarTogglerDemo01">
                     <Link to="/" className="navbar-brand" ><GiShoppingBag /> JANS STORE</Link>
                     <ul className="navbar-nav ms-auto ">
+                        <SearchInput />
                         <li className="nav-item">
                             <NavLink to="/" className="nav-link" >Home</NavLink>
                         </li>
@@ -73,8 +76,32 @@ const Header = () => {
                         <li className="nav-item">
                             <NavLink to="/cart" className="nav-link" >cart(0)</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink to="/category" className="nav-link" >Category</NavLink>
+                        <li className="nav-item dropdown">
+                            <Link
+                                className="nav-link dropdown-toggle"
+                                to={"/categories"}
+                                data-bs-toggle="dropdown"
+                            >
+                                Categories
+                            </Link>
+                            <ul className="dropdown-menu">
+                                <Link
+                                    className="dropdown-item"
+                                    to={"/categories"}
+                                >
+                                    All catgeories
+                                </Link>
+                                {categories?.map((c) => (
+                                    <li>
+                                        <Link
+                                            className="dropdown-item"
+                                            to={`/category/${c.slug}`}
+                                        >
+                                            {c.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </li>
                     </ul >
                 </div >

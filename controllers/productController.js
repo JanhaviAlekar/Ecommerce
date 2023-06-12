@@ -1,4 +1,5 @@
 import productModel from "../models/productModel.js"
+import categoryModel from "../models/categoryModel.js"
 import fs from 'fs'
 import slugify from 'slugify';
 export const createProductController = async (req, res) => {
@@ -82,24 +83,27 @@ export const productPhotoController = async (req, res) => {
     }
 }
 
-export const getSinlgeProductController = async (req, res) => {
+// get single product
+export const getSingleProductController = async (req, res) => {
     try {
-        const product = await productModel.findOne({ slug: req.params.slug }).select("-photo").populate("category")
-        res.status(201).send({
+        const product = await productModel
+            .findOne({ slug: req.params.slug })
+            .select("-photo")
+            .populate("category");
+        res.status(200).send({
             success: true,
-            message: "A single product listed successfully",
+            message: "Single Product Fetched",
             product,
-
-        })
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).send({
             success: false,
-            message: "error in getting photo of a product",
-            error
-        })
+            message: "Eror while getitng single product",
+            error,
+        });
     }
-}
+};
 export const updateProductController = async (req, res) => {
     try {
         const { name, slug, description, price, category, quantity, shipping } = req.fields;
@@ -220,6 +224,69 @@ export const productListController = async (req, res) => {
         console.log(error)
         res.status(400).send({
             message: "Error in product count",
+            error,
+            success: false
+        })
+    }
+}
+
+export const searchProductController = async (req, res) => {
+    try {
+        const { keywords } = req.params
+        const results = await productModel.find({
+            $or: [
+                { name: { $regex: keywords, $options: "i" } },
+                { description: { $regex: keywords, $options: "i" } }
+            ]
+        }).select("-photo");
+        res.json(results);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({
+            message: "Error in searching a product",
+            error,
+            success: false
+        })
+    }
+};
+
+export const getSimilarProductController = async (req, res) => {
+    try {
+        const { pid, cid } = req.params
+        const products = await productModel.find({
+            category: cid,
+            _id: { $ne: pid }
+        }).select("-photo").limit(3).populate("category");
+        res.status(200).send({
+            success: true,
+            message: "Similar products",
+            products
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({
+            message: "Error in getting similar product a product",
+            error,
+            success: false
+        })
+    }
+}
+
+// getting products by category
+export const productCategoryController = async (req, res) => {
+    try {
+        const category = await categoryModel.findOne({ slug: req.params.slug })
+        const product = await productModel.find({ category }).populate("category")
+        res.status(200).send({
+            success: true,
+            message: "",
+            product,
+            category
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({
+            message: "Error in getting ",
             error,
             success: false
         })
