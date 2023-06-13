@@ -1,0 +1,73 @@
+import React from 'react'
+import Layout from '../components/layout/layout'
+import { useNavigate } from 'react-router'
+import { useCart } from '../context/cart'
+import { useAuth } from '../context/auth'
+const CartPage = () => {
+    const [cart, setCart] = useCart();
+    const [auth, setAuth] = useAuth();
+    const navigate = useNavigate();
+    const totalPrice = () => {
+        try {
+            let total = 0;
+            cart?.map((item) => {
+                total = total + item.price;
+            });
+            return total.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD"
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const removeItemCart = (pid) => {
+        try {
+            let myCart = [...cart];
+            let index = myCart.findIndex((item) => item._id === pid);
+            myCart.splice(index, 1);
+            setCart(myCart);
+            localStorage.setItem('cart', JSON.stringify(myCart)) //to remove from local storage
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    return (
+        <Layout>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <h1 className='text-center bg-light p-2 mb-1'>
+                            {` Hello ${auth?.token && auth?.user?.name}`}
+                        </h1>
+                        <h4 className='text-center'>
+                            {cart?.length ? `You have ${cart.length} items in your cart ${auth?.token ? "" : "Please login to checkout"}` : "your cart is empty"}
+                        </h4>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-md-9'>
+                        {cart?.map((p) => (
+                            <div className="row card flex-row p-3 mb-2">
+                                <div className='col-md-4'><img src={`/api/v1/product/product-photo/${p._id}`} width="80px" height={"150px"} className="card-img-top" alt={p.name}></img></div>
+                                <div className='col-md-8'> <h5 className="card-title">{p.name}</h5>
+                                    <p className="card-text">{p.description.substring(0, 30)}</p>
+                                    <p className="card-text">{p.price}</p>
+                                    <button className='btn btn-danger' onClick={() => removeItemCart(p._id)}>Remove</button>
+                                </div></div>
+                        ))}
+                    </div>
+                    <div className='col-md-3'>
+                        <h2>Cart summary</h2>
+                        <p>Total | CheckOut | Payment</p>
+                        <hr />
+                        <h4>Total : {totalPrice()}</h4>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    )
+}
+
+export default CartPage
