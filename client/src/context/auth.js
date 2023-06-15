@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
         const data = localStorage.getItem("auth");
         if (data) {
             const parseData = JSON.parse(data);
-            setAuth(prevAuth => ({ ...prevAuth, user: parseData.user, token: parseData.token }));
+            setAuth(auth => ({ ...auth, user: parseData.user, token: parseData.token }));
         }
     }, []);
 
@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
-
+//custom hook
 const useAuth = () => useContext(AuthContext);
 
 export { useAuth, AuthProvider };
