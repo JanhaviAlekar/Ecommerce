@@ -20,14 +20,14 @@ const SearchInput = () => {
             <nav className="navbar navbar-light bg-light">
                 <div className="container-fluid">
                     <form className="d-flex" onSubmit={handleSubmit}>
-                        <input className="form-control me-2"
+                        <input className="form-control "
                             type="search"
                             placeholder="Search"
                             aria-label="Search"
                             value={values.keywords}
                             onChange={(e) => { setValues({ ...values, keywords: e.target.value }) }}
                         />
-                        <button className="btn btn-outline-success"
+                        <button className="btn btn-outline-success search"
                             type="submit">Search</button>
                     </form>
                 </div>

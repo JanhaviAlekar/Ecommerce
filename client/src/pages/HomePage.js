@@ -6,6 +6,7 @@ import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/prices'
 import { useNavigate } from 'react-router'
 import { useCart } from '../context/cart'
+
 const HomePage = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useCart();
@@ -107,7 +108,7 @@ const HomePage = () => {
     }
     return (
         <Layout title={"SHOP EXCLUSIVELY"}>
-            <div className='row mt-3'>
+            <div className='row mt-3 home'>
                 <div className='col-md-3 text-center'>
                     <h4>Filter by category</h4>
                     <div className='d-flex flex-column'>
@@ -172,6 +173,7 @@ const HomePage = () => {
                             </button>
                         )}
                     </div>
+
                 </div>
 
             </div>

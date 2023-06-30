@@ -7,6 +7,8 @@ import SearchInput from '../form/searchInput';
 import useCategory from '../../hooks/useCategory';
 import { useCart } from '../../context/cart';
 import { Badge } from 'antd'
+import { img } from './final.png'
+
 const Header = () => {
     const [auth, setAuth] = useAuth()
     const [cart] = useCart();
@@ -20,12 +22,14 @@ const Header = () => {
     }
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar nav-btm navbar-expand-lg navbar-light bg-light">
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
+
                 <div className="collapse navbar-collapse " id="navbarTogglerDemo01">
-                    <Link to="/" className="navbar-brand" ><GiShoppingBag /> JANS STORE</Link>
+                    <img className="navbar-brand" src='./final.png'></img>
+
                     <ul className="navbar-nav ms-auto ">
                         <SearchInput />
                         <li className="nav-item">
@@ -76,10 +80,9 @@ const Header = () => {
                             </>)
                         }
                         <li className="nav-item">
-                            <Badge count={cart?.length} showZero>
-                                <NavLink to="/cart" className="nav-link" >
-                                    cart </NavLink>
-                            </Badge>
+
+                            <NavLink to="/cart" className="nav-link" >
+                                cart ({cart?.length})</NavLink>
 
                         </li>
                         <li className="nav-item dropdown">
