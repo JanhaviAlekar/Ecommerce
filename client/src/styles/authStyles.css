@@ -5,47 +5,50 @@
     justify-content: center;
     flex-direction: column;
     min-height: 70vh;
-    background-color: #ffdee9;
-    background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
+    background-color: #fff;
+    width:100%;
+    margin-top:25px;
 }
 
 .form-container form {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(132, 129, 129, 0.35) 0px 5px 15px;
     padding: 20px;
     background-color: #fff;
 }
 
 .form-container form .title {
-    text-align: center;
-    margin-bottom: 15px;
     font-weight: bold;
     font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .form-container form input {
+    position: relative;
+    margin-top: 30px;
+  
+    height: 100%;
+    width: 100%;
     border: none;
-    border-bottom: 1px solid #000;
-    border-radius: 0;
-}
-
+    outline: none;
+    padding: 5px 12px;
+    color: #333;
+    transition: all 0.2s ease;
+    border-bottom: 1.5px solid #aaaaaa;
+    border-radius:2px;
+   }
+   .form-container form input:focus {
+    border-color: #006d58 !important;
+  }
 .form-container form button {
     border-bottom: 1px solid #000;
     border-radius: 0;
-    background-color: #000;
     width: 250px;
     color: #fff;
 }
 
-.form-container form button:hover {
-    border: 1px solid black;
-    background: #000000;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right,
-            #434343,
-            #000000);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right,
-            #434343,
-            #000000);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
+input[type="text"]:not(:placeholder-shown) {
+    background-color: white;
+  }

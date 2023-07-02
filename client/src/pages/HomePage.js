@@ -108,55 +108,86 @@ const HomePage = () => {
     }
     return (
         <Layout title={"SHOP EXCLUSIVELY"}>
-            <div className='row mt-3 home'>
-                <div className='col-md-3 text-center'>
-                    <h4>Filter by category</h4>
-                    <div className='d-flex flex-column'>
-                        {categories?.map(c => (
-                            <Checkbox key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
-                                {c.name}
-                            </Checkbox>
-                        ))}
-                    </div>
-                    {/* //price filter */}
-                    <h4 className='mt-4'>Filter by Prices</h4>
-                    <div className="d-flex align-items-start flex-column">
-                        <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-                            {Prices?.map((p) => (
-                                <div key={p._id}>
-                                    <Radio value={p.array}>{p.name}</Radio>
-                                </div>
-                            ))}
-                        </Radio.Group>
-                    </div>
-                    <div className="d-flex  flex-column">
-                        <button className="btn btn-danger ms-1" onClick={() => window.location.reload()}>
-                            RESET FILTER </button>
+            <section className="hero" id="home" style={{ backgroundImage: 'url("https://mdbcdn.b-cdn.net/img/new/slides/041.webp")' }}>
+                <div className="container">
+                    <div className="hero-content">
+                        <p className="hero-subtitle">Fashion Everyday</p>
+                        <h2 className="h1 hero-title">Unrivalled Fashion House</h2>
+                        <button className="btn">Shop Now</button>
                     </div>
                 </div>
+            </section>
+
+
+            <div className='row mt-3 home'>
+
+                <div className='col-md-3 text-center'>
+                    <div className="filter">
+                        <h4>Filter by category</h4>
+                        <hr className='hr-text' />
+                        <div className='d-flex flex-column text-muted'>
+                            {categories?.map(c => (
+                                <Checkbox className='radio' key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
+                                    {c.name}
+                                </Checkbox>
+                            ))}
+                        </div>
+                        {/* //price filter */}
+                        <h4 className='mt-4'>Filter by Prices</h4>
+                        <hr className='hr-text' />
+                        <div className="d-flex align-items-start text-muted flex-column filter-text">
+                            <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+                                {Prices?.map((p) => (
+                                    <div className='radio' key={p._id}>
+                                        <Radio value={p.array}>{p.name}</Radio>
+                                    </div>
+                                ))}
+                            </Radio.Group>
+                        </div>
+                        <div className="d-flex  flex-column">
+                            <button className="btn mt-2 ms-1" onClick={() => window.location.reload()}>
+                                RESET FILTER </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div className='col-md-9 text-center'>
-                    <h1>All products</h1>
-                    <div className='d-flex flex-wrap'>{
+                    <h4 className='text-head'>All products</h4>
+                    <div className=' row row-cols-1 row-cols-md-3 g-4 '>{
                         products?.map(p => (
 
                             <div className="d-flex justify-content-between">
-                                <div className="card m-2" style={{ width: "18rem" }}>
-                                    <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name}></img>
-                                    <div className="card-body">
-                                        <h5 className="card-title">{p.name}</h5>
-                                        <p className="card-text">{p.description.substring(0, 30)}</p>
-                                        <p className="card-text">{p.price}</p>
-                                        <button className='btn btn-primary ms-1' onClick={() => navigate(`/product/${p.slug}`)}>More details</button>
-                                        <button
-                                            className='btn btn-secondary ms-1'
-                                            onClick={() => {
-                                                setCart([...cart, p])
-                                                localStorage.setItem('cart', JSON.stringify([...cart, p]))
-                                                toast.success('Item added to cart');
-                                            }}
-                                        >Add to cart</button>
+                                <div className="container-card">
+                                    <div className="card">
+                                        <div className="heart">
+                                            <i className="fa fa-heart" />
+                                        </div>
+                                        <div className="top-div">
+                                            <div className="border">
+                                                <img src={`/api/v1/product/product-photo/${p._id}`} alt={p.name} />
+                                            </div>
+                                            <span>{p.price} Rs</span>
+                                        </div>
+                                        <div className="bottom-div">
+                                            <h3>{p.name}</h3>
+                                            <p>{p.description.substring(0, 30)}</p>
+                                        </div>
+                                        <div className="last-section">
+                                            <div className="last-div">
+                                                <i class="fa fa-shopping-cart" ></i>
+                                                <i class="fa-solid fa-icon2 fa-comment-dots"></i>
+                                            </div>
+                                            <div className="buttons ">
+                                                <button onClick={() => {
+                                                    setCart([...cart, p])
+                                                    localStorage.setItem('cart', JSON.stringify([...cart, p]))
+                                                    toast.success('Item added to cart');
+                                                }}>Add to cart</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
 
                         ))
@@ -164,7 +195,7 @@ const HomePage = () => {
                     </div>
                     <div className='m-2 p-3'>
                         {products && products.length < total && (
-                            <button className='btn btn-warning'
+                            <button className='btn '
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPage(page + 1)
@@ -182,3 +213,20 @@ const HomePage = () => {
 }
 
 export default HomePage
+{/* <div className="card m-2" style={{ width: "18rem" }}>
+                                    <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name}></img>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{p.name}</h5>
+                                        <p className="card-text">{p.description.substring(0, 30)}</p>
+                                        <p className="card-text">{p.price}</p>
+                                        <button className='btn  ms-1' onClick={() => navigate(`/product/${p.slug}`)}>More details</button>
+                                        <button
+                                            className='btn  ms-1'
+                                            onClick={() => {
+                                                setCart([...cart, p])
+                                                localStorage.setItem('cart', JSON.stringify([...cart, p]))
+                                                toast.success('Item added to cart');
+                                            }}
+                                        >Add to cart</button>
+                                    </div>
+                                </div> */}

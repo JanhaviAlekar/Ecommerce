@@ -27,7 +27,7 @@ const SearchInput = () => {
                             value={values.keywords}
                             onChange={(e) => { setValues({ ...values, keywords: e.target.value }) }}
                         />
-                        <button className="btn btn-outline-success search"
+                        <button className="btn success search"
                             type="submit">Search</button>
                     </form>
                 </div>
